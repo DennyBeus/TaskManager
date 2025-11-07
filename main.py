@@ -28,15 +28,17 @@ filter_mode = 'all'
 while True:
     print('Менеджер задач:')
     print('-' * 56)
-    if tasks == {}:
-        print('Список задач пуст')
+    count = 0
     for i in range(len(tasks)):
         if filter_mode == 'active' and tasks[i + 1]['done']:
             continue
         if filter_mode == 'done' and not tasks[i + 1]['done']:
             continue
+        count += 1
         symbol = '✓' if tasks[i + 1]['done'] else ' '
         print(f'{i + 1} - [{symbol}] - {tasks[i + 1]['task']}')
+    if count == 0:
+        print('Нет активных/выполненных задач')
     print('-' * 56)
     for row in menu_buttons:
         for elem in row:
@@ -54,7 +56,7 @@ while True:
     if answer_num == 1:
         task_text = input('Опишите задачу: ')
         add_task(task_text)
-    if answer_num == 2:
+    elif answer_num == 2:
         try:
             status = int(input('Укажите номер задачи: '))
             if status > len(tasks):
@@ -64,7 +66,7 @@ while True:
             print('* Введите число! *')
             continue
         status_task(status)
-    if answer_num == 3:
+    elif answer_num == 3:
         try:
             number = int(input('Укажите номер задачи: '))
             if number > len(tasks):
@@ -74,10 +76,10 @@ while True:
             print('* Введите число! *')
             continue
         del_task(number)
-    if answer_num == 4:
+    elif answer_num == 4:
         filter_mode = 'all'
-    if answer_num == 5:
+    elif answer_num == 5:
         filter_mode = 'active'
-    if answer_num == 6:
+    elif answer_num == 6:
         filter_mode = 'done'
         
